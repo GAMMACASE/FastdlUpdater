@@ -115,7 +115,7 @@ def main():
 
 					if not os.path.exists(os.path.join(gameRootFolder, os.path.relpath(dirpath, fastdlRootFolder), filename)):
 						TotalFilesRemoved += 1
-						print("Found removed file {}, deleting...".format(os.path.join(gameRootFolder, dirpath, filename)))
+						print("Found removed file {}, deleting...".format(os.path.join(gameRootFolder, os.path.relpath(dirpath, fastdlRootFolder), filename)))
 						os.remove(os.path.join(dirpath, file))
 
 			for dirpath, dirnames, filenames in os.walk(os.path.join(fastdlRootFolder, expfolder), topdown = False):

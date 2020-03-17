@@ -10,7 +10,7 @@ fastdlRootFolder = "./www/fastdl"
 
 gameFolders = [
 	("maps", [".bsp", ".nav"]),
-	("materials", [".vmt", ".vtf"]),
+	("materials", [".vmt", ".vtf", ".raw"]),
 	("models", [".mdl", ".vtx", ".vvd", ".phy"]),
 	("particles", [".pcf"]),
 	("sound", [".mp3", ".wav"])

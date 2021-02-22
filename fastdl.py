@@ -64,7 +64,8 @@ def initBlacklist(path_to_blacklist):
 		print("BlackList found at {}. Parsing files...".format(path_to_blacklist))
 		blacklist = open(path_to_blacklist, "r")
 		for line in blacklist:
-			BlackListedFiles.append(line.strip())
+			if not line[0] == "#":
+				BlackListedFiles.append(line.strip())
 		blacklist.close()
 		print("Done parsing blacklisted files")
 	return BlackListedFiles

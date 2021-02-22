@@ -7,6 +7,7 @@ from time import time
 
 gameRootFolder = "./csgo"
 fastdlRootFolder = "./www/fastdl"
+blackListPath = "fastdl_blacklist.txt"
 
 gameFolders = [
 	("maps", [".bsp", ".nav"]),
@@ -55,9 +56,22 @@ def filesEqual(rootfile, fdfile, bz2format = False):
 					print("File {} compared for {:.2f} seconds".format(rootfile, time() - prevtime))
 					return True
 
+def initBlacklist(path_to_blacklist):
+	BlackListedFiles = []
+	if not os.path.exists(path_to_blacklist):
+		print("BlackList not found at {}. ignoring...".format(path_to_blacklist))
+	else:
+		print("BlackList found at {}. Parsing files...".format(path_to_blacklist))
+		blacklist = open(path_to_blacklist, "r")
+		for line in blacklist:
+			BlackListedFiles.append(line.strip())
+		blacklist.close()
+		print("Done parsing blacklisted files")
+	return BlackListedFiles
 
 def addToFastdl(rootfile, fdfile, copy = False):
 	global TotalFilesUpdated, TotalFilesChanged, TotalFilesRemoved
+	#ignore blacklisted files
 	if not os.path.exists(fdfile):
 		TotalFilesUpdated += 1
 		print("Adding {} to fastdl...".format(rootfile))
@@ -87,7 +101,7 @@ def main():
 	if not os.path.exists(fastdlRootFolder):
 		print("Fastdl folder wasn't found!")
 		return
-
+	BlackListedFiles = initBlacklist(blackListPath)
 	timestart = time()
 	try:
 		for expfolder, exts in gameFolders:
@@ -98,13 +112,15 @@ def main():
 						if not os.path.exists(fulldir):
 							print("Directory {} wasn't found on fastdl path, creating...".format(fulldir))
 							os.makedirs(fulldir)
-
 						rootfile = os.path.join(dirpath, file)
-						#special case for files bigger then 150mb
+						if BlackListedFiles != [] and str(file) in BlackListedFiles:
+							print("Found {} which is blacklisted, ignoring...".format(str(file)))
+							continue
+						#special case for files bigger than 150MB
 						if os.path.getsize(rootfile) < (150 * 1024 * 1024):
-							addToFastdl(rootfile, os.path.join(fulldir, "{}.bz2".format(file)))
+							addToFastdl(rootfile, os.path.join(fulldir, "{}.bz2".format(file)), BlackListedFiles)
 						else:
-							addToFastdl(rootfile, os.path.join(fulldir, file), True)
+							addToFastdl(rootfile, os.path.join(fulldir, file), BlackListedFiles, True)
 
 			for dirpath, dirnames, filenames in os.walk(os.path.join(fastdlRootFolder, expfolder)):
 				for file in filenames:

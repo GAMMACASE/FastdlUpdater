@@ -62,17 +62,17 @@ def initBlacklist(path_to_blacklist):
 		print("BlackList not found at {}. ignoring...".format(path_to_blacklist))
 	else:
 		print("BlackList found at {}. Parsing files...".format(path_to_blacklist))
-		blacklist = open(path_to_blacklist, "r")
-		for line in blacklist:
-			if not line[0] == "#":
-				BlackListedFiles.append(line.strip())
+		with open(path_to_blacklist, "rb") as blacklist:
+			for line in blacklist:
+				if not line[0] == "#":
+					BlackListedFiles.append(line.strip())
 		blacklist.close()
 		print("Done parsing blacklisted files")
 	return BlackListedFiles
 
 def addToFastdl(rootfile, fdfile, copy = False):
 	global TotalFilesUpdated, TotalFilesChanged, TotalFilesRemoved
-	#ignore blacklisted files
+	
 	if not os.path.exists(fdfile):
 		TotalFilesUpdated += 1
 		print("Adding {} to fastdl...".format(rootfile))
@@ -114,14 +114,15 @@ def main():
 							print("Directory {} wasn't found on fastdl path, creating...".format(fulldir))
 							os.makedirs(fulldir)
 						rootfile = os.path.join(dirpath, file)
-						if BlackListedFiles != [] and str(file) in BlackListedFiles:
+						#ignore blacklisted files
+						if BlackListedFiles != [] and file in BlackListedFiles:
 							print("Found {} which is blacklisted, ignoring...".format(str(file)))
 							continue
 						#special case for files bigger than 150MB
 						if os.path.getsize(rootfile) < (150 * 1024 * 1024):
-							addToFastdl(rootfile, os.path.join(fulldir, "{}.bz2".format(file)), BlackListedFiles)
+							addToFastdl(rootfile, os.path.join(fulldir, "{}.bz2".format(file)))
 						else:
-							addToFastdl(rootfile, os.path.join(fulldir, file), BlackListedFiles, True)
+							addToFastdl(rootfile, os.path.join(fulldir, file), True)
 
 			for dirpath, dirnames, filenames in os.walk(os.path.join(fastdlRootFolder, expfolder)):
 				for file in filenames:

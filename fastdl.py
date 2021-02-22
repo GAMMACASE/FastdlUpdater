@@ -64,7 +64,11 @@ def initBlacklist(path_to_blacklist):
 		print("BlackList found at {}. Parsing files...".format(path_to_blacklist))
 		with open(path_to_blacklist, "r") as inp:
 			lines = inp.readlines()
-			files = [x.strip() for x in lines]
+			files = []
+			for line in lines:
+				stripped_line = line.strip()
+				if stripped_line[0] != '#' and not stripped_line.startswith('//'):
+					files.append(stripped_line)
 	return files
 
 def addToFastdl(rootfile, fdfile, copy = False):

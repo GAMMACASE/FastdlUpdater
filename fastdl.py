@@ -7,7 +7,10 @@ from time import time
 
 gameRootFolder = "./csgo"
 fastdlRootFolder = "./www/fastdl"
-blackListPath = "./fastdl_blacklist.txt"
+#blackListPath = "./fastdl_blacklist_custom.txt"
+blackListPath = "./fastdl_blacklist_csgo.txt"
+#blackListPath = "./fastdl_blacklist_css.txt"
+#blackListPath = "./fastdl_blacklist_tf2.txt"
 
 gameFolders = [
 	("maps", [".bsp", ".nav"]),

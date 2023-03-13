@@ -1,0 +1,21 @@
+# List of the default maps
+cs_assault.bsp
+cs_compound.bsp
+cs_havana.bsp
+cs_italy.bsp
+cs_militia.bsp
+cs_office.bsp
+de_aztec.bsp
+de_cbble.bsp
+de_chateau.bsp
+de_dust2.bsp
+de_dust.bsp
+de_inferno.bsp
+de_nuke.bsp
+de_piranesi.bsp
+de_port.bsp
+de_prodigy.bsp
+de_tides.bsp
+de_train.bsp
+test_hardware.bsp
+test_speakers.bsp

@@ -26,10 +26,7 @@ Edit ``gameRootFolder`` and ``fastdlRootFolder`` variables in ``fastdl.py`` to p
 
 # Ubuntu install:
 sudo apt-get install python3
-
 sudo crontab -e
-
 */5 * * * *  su - gs-1 -c 'cd /home/gs-1/gameservers/tf2_1/fastdl && python3 ./fastdl.py' > /dev/null 2>&1
-
 
 Where "*/5 * * * *" check updates every 5 minutes, "gs-1" user to run script, "/home/gs-1/gameservers/tf2_1/fastdl" path to "fastdl.py".

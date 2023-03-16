@@ -21,7 +21,7 @@ Simple python script to update and maintain fastdl folder for games such as CS:G
 4. Additionally you can use optional arguments if you seek a need in this (Refer to [arguments](#Arguments) section);
 
 # Arguments:
-* ``-h``, ``--help``: Prints help this help info;
+* ``-h``, ``--help``: Prints this help info;
 * ``-f``, ``--full_check``: Performs full check on all files to ensure their validity (NOTE: The operation is very costly!!!);
 * ``-v {0, 1, 2}``, ``--verbose {0, 1, 2}``: Verbosity levels (default: 2):
   * 0 - Only changes to the data would be printed;

@@ -163,9 +163,9 @@ if __name__ == "__main__":
 			help = 'Performs full check on all files to ensure their validity (NOTE: The operation is very costly!!!)',
 			action = 'store_true', default = False, dest = 'full_check')
 	parser.add_argument('-v', '--verbose',
-			help = 'Verbosity levels:\n0 - Only changes to the data would be printed;\n'
+			help = 'Verbosity levels (default: 2):\n0 - Only changes to the data would be printed;\n'
 				'1 - Header, footer, and data changes would be printed;\n'
-				'2 - Header, footer, blacklist notifications, comparison info (if -f is used) and data changes would be printed;\n(default: 2)',
+				'2 - Header, footer, blacklist notifications, comparison info (if -f is used) and data changes would be printed;',
 			action = 'store', type = int, choices = range(0, 3), default = 2, dest = 'verbose_level')
 	
 	ProcessArgs = parser.parse_args()

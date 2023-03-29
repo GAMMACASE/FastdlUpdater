@@ -115,16 +115,16 @@ def main():
 			for dirpath, dirnames, filenames in os.walk(os.path.join(gameRootFolder, expfolder)):
 				for file in filenames:
 					if os.path.splitext(file)[1] in exts:
+						#ignore blacklisted files
+						if BlackListedFiles is not None and file in BlackListedFiles:
+							printVerbose(2, "Found {} which is blacklisted, ignoring...".format(file))
+							continue
+						
 						fulldir = os.path.join(fastdlRootFolder, os.path.relpath(dirpath, gameRootFolder))
 						if not os.path.exists(fulldir):
 							printVerbose(0, "Directory {} wasn't found on fastdl path, creating...".format(fulldir))
 							os.makedirs(fulldir)
 						rootfile = os.path.join(dirpath, file)
-						
-						#ignore blacklisted files
-						if BlackListedFiles is not None and file in BlackListedFiles:
-							printVerbose(2, "Found {} which is blacklisted, ignoring...".format(file))
-							continue
 						
 						#special case for files bigger than 150MB
 						if os.path.getsize(rootfile) < (150 * 1024 * 1024):
